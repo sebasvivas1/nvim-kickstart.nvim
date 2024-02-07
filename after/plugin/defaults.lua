@@ -1,3 +1,9 @@
+-- Relative numbers
+vim.opt.relativenumber = true
+
+-- Scrolloff
+vim.o.scrolloff = 10
+
 -- Basics
 vim.keymap.set("n", "<leader>w",  ":w<CR>")
 vim.keymap.set("n", "<leader>q",  ":q<CR>")
