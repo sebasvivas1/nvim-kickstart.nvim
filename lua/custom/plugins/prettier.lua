@@ -30,7 +30,7 @@ return {
         },
       }
   
-      vim.keymap.set('n', '<leader>pr', ':Prettier<CR>', { desc = 'Format document using prettier' })
+      vim.keymap.set('n', '<leader>pr', require('prettier').format, { desc = 'Format document using [P][R]ettier' })
     end,
   }
   
