@@ -16,7 +16,9 @@ return {
         position = "left",
       },
       filesystem = {
-        follow_current_file = true,
+        follow_current_file = {
+          enabled = true, -- This will find and focus the file in the active buffer every time
+        },
       },
       event_handlers = {
         -- Auto close when open a file
