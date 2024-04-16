@@ -189,17 +189,32 @@ require('lazy').setup({
     },
   },
 
+  -- {
+  --   -- Theme inspired by Atom
+  --   'navarasu/onedark.nvim',
+  --   priority = 1000,
+  --   lazy = false,
+  --   config = function()
+  --     require('onedark').setup {
+  --       -- Set a style preset. 'dark' is default.
+  --       style = 'dark', -- dark, darker, cool, deep, warm, warmer, light
+  --     }
+  --     require('onedark').load()
+  --   end,
+  -- },
+  --
+
+  -- Theme
   {
-    -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
+    "folke/tokyonight.nvim",
     priority = 1000,
     lazy = false,
     config = function()
-      require('onedark').setup {
-        -- Set a style preset. 'dark' is default.
-        style = 'dark', -- dark, darker, cool, deep, warm, warmer, light
+      require("tokyonight").setup {
+        -- Set a style preset. 'night' is default.
+        style = "moon", -- night, storm, day, storm
       }
-      require('onedark').load()
+      require("tokyonight").load()
     end,
   },
 
@@ -211,8 +226,16 @@ require('lazy').setup({
       options = {
         icons_enabled = false,
         theme = 'auto',
-        component_separators = '|',
-        section_separators = '',
+        section_separators = { left = '', right = '' },
+        component_separators = { left = '', right = '' }
+      },
+      sections = {
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch' },
+        lualine_c = { { 'filename', path = 1 } },
+        lualine_x = { 'filetype' },
+        lualine_y = { 'progress' },
+        lualine_z = { 'location' },
       },
     },
   },
@@ -279,7 +302,8 @@ require('lazy').setup({
 -- NOTE: You can change these options as you wish!
 
 -- Set highlight on search
-vim.o.hlsearch = false
+vim.o.hlsearch = true
+
 
 -- Make line numbers default
 vim.wo.number = true
@@ -330,6 +354,9 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous dia
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 -- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
+-- Clear search highlights with two <esc> presses in normal mode
+vim.keymap.set('n', '<esc>', ':noh<cr>', { silent = true, desc = 'Clear search highlights' })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
