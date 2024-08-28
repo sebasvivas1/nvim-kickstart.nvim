@@ -597,13 +597,22 @@ require('mason-lspconfig').setup()
 --
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
+
 local servers = {
   -- clangd = {},
   -- gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
-  -- tsserver = {},
+  -- tsserver = {
+  --   root_dir = lspconfig.util.root_pattern('package.json', 'tsconfig.json', 'jsconfig.json', '.git'),
+  --   filetypes = { 'typescript', 'javascript', 'typescriptreact', 'javascriptreact' },
+  -- },
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
+  -- denols = {
+  --   -- on_attach = on_attach,
+  --   root_dir = lspconfig.util.root_pattern('deno.json', '.vscode/settings.json'),
+  --   filetypes = { 'typescript', 'javascript', },
+  -- },
 
   lua_ls = {
     Lua = {
@@ -614,6 +623,7 @@ local servers = {
     },
   },
 }
+
 
 -- Setup neovim lua configuration
 require('neodev').setup()
@@ -638,6 +648,18 @@ mason_lspconfig.setup_handlers {
       filetypes = (servers[server_name] or {}).filetypes,
     }
   end,
+}
+
+local nvim_lsp = require('lspconfig')
+nvim_lsp.denols.setup {
+  on_attach = on_attach,
+  root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
+}
+
+nvim_lsp.tsserver.setup {
+  on_attach = on_attach,
+  root_dir = nvim_lsp.util.root_pattern("package.json"),
+  single_file_support = false
 }
 
 -- [[ Configure nvim-cmp ]]
