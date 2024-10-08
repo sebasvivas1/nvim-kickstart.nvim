@@ -28,3 +28,7 @@ vim.keymap.set("n", "<leader>t", ":tabnew<CR>")
 
 -- Clear search highlights with two <esc> presses in normal mode
 vim.keymap.set('n', '<esc>', ':noh<cr>', { silent = true, desc = 'Clear search highlights' })
+
+vim.keymap.set('n', '<leader>pr', ':Prettier<CR>')
+
+vim.keymap.set('n', '<Leader>d', '<Plug>(doge-generate)')
