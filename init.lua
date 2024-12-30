@@ -113,7 +113,7 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  -- { 'folke/which-key.nvim', opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -189,34 +189,34 @@ require('lazy').setup({
     },
   },
 
-  -- {
-  --   -- Theme inspired by Atom
-  --   'navarasu/onedark.nvim',
-  --   priority = 1000,
-  --   lazy = false,
-  --   config = function()
-  --     require('onedark').setup {
-  --       -- Set a style preset. 'dark' is default.
-  --       style = 'dark', -- dark, darker, cool, deep, warm, warmer, light
-  --     }
-  --     require('onedark').load()
-  --   end,
-  -- },
-  --
-
-  -- Theme
   {
-    "folke/tokyonight.nvim",
+    -- Theme inspired by Atom
+    'navarasu/onedark.nvim',
     priority = 1000,
     lazy = false,
     config = function()
-      require("tokyonight").setup {
-        -- Set a style preset. 'night' is default.
-        style = "moon", -- night, storm, day, storm
+      require('onedark').setup {
+        -- Set a style preset. 'dark' is default.
+        style = 'dark', -- dark, darker, cool, deep, warm, warmer, light
       }
-      require("tokyonight").load()
+      require('onedark').load()
     end,
   },
+  --
+
+  -- Theme
+  -- {
+  --   "folke/tokyonight.nvim",
+  --   priority = 1000,
+  --   lazy = false,
+  --   config = function()
+  --     require("tokyonight").setup {
+  --       -- Set a style preset. 'night' is default.
+  --       style = "moon", -- night, storm, day, storm
+  --     }
+  --     require("tokyonight").load()
+  --   end,
+  -- },
 
   {
     -- Set lualine as statusline
@@ -309,7 +309,7 @@ vim.o.hlsearch = true
 vim.wo.number = true
 
 -- Enable mouse mode
-vim.o.mouse = 'a'
+vim.o.mouse = "a"
 
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
@@ -567,22 +567,22 @@ local on_attach = function(_, bufnr)
 end
 
 -- document existing key chains
-require('which-key').register {
-  ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-  ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-  ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
-  ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
-  ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-  ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-  ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
+-- require('which-key').register {
+--   ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
+--   ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
+--   ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
+--   ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
+--   ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
+--   ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
+--   ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
   -- ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-}
+-- }
 -- register which-key VISUAL mode
 -- required for visual <leader>hs (hunk stage) to work
-require('which-key').register({
-  ['<leader>'] = { name = 'VISUAL <leader>' },
-  ['<leader>h'] = { 'Git [H]unk' },
-}, { mode = 'v' })
+-- require('which-key').register({
+--   ['<leader>'] = { name = 'VISUAL <leader>' },
+--   ['<leader>h'] = { 'Git [H]unk' },
+-- }, { mode = 'v' })
 
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
@@ -599,21 +599,6 @@ require('mason-lspconfig').setup()
 --  define the property 'filetypes' to the map in question.
 
 local servers = {
-  -- clangd = {},
-  -- gopls = {},
-  -- pyright = {},
-  -- rust_analyzer = {},
-  -- tsserver = {
-  --   root_dir = lspconfig.util.root_pattern('package.json', 'tsconfig.json', 'jsconfig.json', '.git'),
-  --   filetypes = { 'typescript', 'javascript', 'typescriptreact', 'javascriptreact' },
-  -- },
-  -- html = { filetypes = { 'html', 'twig', 'hbs'} },
-  -- denols = {
-  --   -- on_attach = on_attach,
-  --   root_dir = lspconfig.util.root_pattern('deno.json', '.vscode/settings.json'),
-  --   filetypes = { 'typescript', 'javascript', },
-  -- },
-
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -637,6 +622,7 @@ local mason_lspconfig = require 'mason-lspconfig'
 
 mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
+  automatic_installation = true
 }
 
 mason_lspconfig.setup_handlers {
@@ -661,6 +647,8 @@ nvim_lsp.ts_ls.setup {
   root_dir = nvim_lsp.util.root_pattern("package.json"),
   single_file_support = false
 }
+
+nvim_lsp.shopify_theme_ls.setup {}
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
