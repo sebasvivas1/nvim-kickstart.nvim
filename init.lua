@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -760,10 +760,11 @@ require('lazy').setup({
         if disable_filetypes[vim.bo[bufnr].filetype] then
           return nil
         else
-          return {
-            timeout_ms = 500,
-            lsp_format = 'fallback',
-          }
+          return nil
+          -- return {
+          --   timeout_ms = 500,
+          --   lsp_format = 'fallback',
+          -- }
         end
       end,
       formatters_by_ft = {
